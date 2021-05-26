@@ -34,7 +34,7 @@ auth()->user()->name
 
 ### Package relation
 
-- Sppatie
+- Spatie
   permissions [https://spatie.be/docs/laravel-permission/v4/introduction](https://spatie.be/docs/laravel-permission/v4/introduction)
 
 #### Retrive first assigned role of user
@@ -100,7 +100,9 @@ $user = User::query()
 ```
 
 ### Relation loading before with custom
+
 In this case the last parameter need to be an ID that query know where belong to
+
 ```php
 $user = User::query()
 ->with(['user_data_relation' => function($query){
@@ -108,11 +110,27 @@ $user = User::query()
 }])
 ->get();
 ```
+
 In this case we additionaly add subquery filter to filter out all inactive results.
+
 ```php
 $user = User::query()
 ->with(['user_data_relation' => function($query){
     return $query->select('field_1', 'field_2', 'extra_field', 'id')->where('is_active', 1);
+}])
+->get();
+```
+
+Example of multi subquery relationship data
+```php
+$user = User::query()
+->with(['posts' => function($query){
+    return $query->select('title', 'content',  'created_at', 'id')->where('is_active', 1)
+    ->with([
+        'comments' => function($query){
+            return $query->select('comment', 'created_at', 'id')->where('is_active', 1)
+        }
+    ]);
 }])
 ->get();
 ```
