@@ -53,3 +53,9 @@ if (!function_exists('me')) {
 ```php
 me()->email
 ```
+```php
+me()->name
+```
+```php
+me()->id
+```
