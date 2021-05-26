@@ -104,7 +104,7 @@ In this case the last parameter need to be an ID that query know where belong to
 ```php
 $user = User::query()
 ->with(['user_data_relation' => function($query){
-return $query->select('field_1', 'field_2', 'extra_field', 'id');
+    return $query->select('field_1', 'field_2', 'extra_field', 'id');
 }])
 ->get();
 ```
@@ -112,8 +112,7 @@ In this case we additionaly add subquery filter to filter out all inactive resul
 ```php
 $user = User::query()
 ->with(['user_data_relation' => function($query){
-return $query->select('field_1', 'field_2', 'extra_field', 'id')
-->where('is_active', 1);
+    return $query->select('field_1', 'field_2', 'extra_field', 'id')->where('is_active', 1);
 }])
 ->get();
 ```
