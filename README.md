@@ -125,10 +125,12 @@ Example of multi subquery relationship data
 ```php
 $user = User::query()
 ->with(['posts' => function($query){
-    return $query->select('title', 'content',  'created_at', 'id')->where('is_active', 1)
+    return $query->select('title', 'content',  'created_at', 'id')
+    ->where('is_active', 1)
     ->with([
         'comments' => function($query){
-            return $query->select('comment', 'created_at', 'id')->where('is_active', 1)
+            return $query->select('comment', 'created_at', 'id')
+            ->where('is_active', 1);
         }
     ]);
 }])
