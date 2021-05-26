@@ -129,8 +129,7 @@ $user = User::query()
     ->where('is_active', 1)
     ->with([
         'comments' => function($query){
-            return $query->select('comment', 'created_at', 'id')
-            ->where('is_active', 1);
+            return $query->select('comment', 'created_at', 'post_id', 'id');
         }
     ]);
 }])
